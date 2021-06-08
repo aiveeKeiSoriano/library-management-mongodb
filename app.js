@@ -26,7 +26,7 @@ mongoose.connect("mongodb://127.0.0.1:27017/library", {
 // })
 
 app.get("/", (req, res) => {
-  res.render('index', {message: "Welcome to the Library!"})
+  res.redirect('/books')
 //   res.send("Welcome to the Library!");
 });
 
