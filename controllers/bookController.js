@@ -69,10 +69,16 @@ const bookAtCategory = async (input) => {
   }
 }
 
+const allBooks = async () => {
+  let books = await Book.find();
+  return books
+}
+
 module.exports = {
   printAllBooks,
   addBook,
   deleteBook,
   searchBook,
-  bookAtCategory
+  bookAtCategory,
+  allBooks
 };

@@ -1,0 +1,18 @@
+head
+    title='Add Book'
+    link(rel="stylesheet", href="styles.css")
+body 
+    div(class='form')
+        h1="Add Book"
+        form(action='/books', method='POST')
+            p="Book Name"
+            input(type='text', name='name', placeholder='Enter book name')
+            p="Authors (separated by commas)"
+            input(type='text', name='authors', placeholder='Enter authors name')
+            p="Category"
+            select(name='category')
+                for category in categories
+                    option(value=category)=category
+            p="Price"
+            input(type='number', name='price', placeholder='Enter price')
+            button="Submit"

@@ -1,0 +1,13 @@
+head
+    title='Books'
+    link(rel="stylesheet", href="styles.css")
+body 
+    div(class='head')
+        h1="All Books"
+        a(href='/add')="Add New Book"
+    div(class='books')
+        for book in books
+            div(class='book')
+                p=book.name
+                p=book.authors.join(' | ')
+    

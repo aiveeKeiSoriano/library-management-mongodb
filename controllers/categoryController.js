@@ -34,8 +34,14 @@ const deleteCategory = async (input) => {
   }
 };
 
+const allCategories = async () => {
+  let categories = await Category.find();
+  return categories.map(el => el.name);
+}
+
 module.exports = {
   printAllCategories,
   addCategory,
   deleteCategory,
+  allCategories
 };

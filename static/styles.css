@@ -1,0 +1,120 @@
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    width: 100vw;
+    min-height: 100vh;
+    font-family: sans-serif;
+    display: flex;
+    flex-direction: column;
+    gap: .5em;
+    align-items: center;
+}
+
+.head {
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    padding: 1em;
+    align-items: center;
+}
+
+.books {
+    width: 100%;
+    display: flex;
+    gap: 1em;
+    padding: 1em 2em;
+    flex-wrap: wrap;
+    flex-direction: column;
+}
+
+.book {
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-end;
+    gap: 1em;
+    width: 900px;
+    padding: 1em;
+    border-radius: 5px;
+    box-shadow: 2px 2px 5px rgb(180, 180, 180);
+    border-left: 5px solid rgb(117, 24, 24);
+    background-color: white;
+}
+
+.book p:first-of-type {
+    font-weight: 600;
+    font-size: 1.1rem;
+}
+
+.book p:last-of-type {
+    font-size: .9rem;
+    color: rgb(31, 31, 31);
+}
+
+a {
+    padding: 1em;
+    border: 3px solid transparent;
+    background-color: rgb(117, 24, 24);
+    font-weight: 600;
+    cursor: pointer;
+    margin-left: 1em;
+    transition: background-color 200ms linear;
+    color: white;
+    text-decoration-line: none;
+    border-radius: 5px;
+}
+
+a:hover {
+    border: 3px solid rgb(117, 24, 24);
+    background-color: white;
+    color: rgb(117, 24, 24);
+}
+
+.form {
+    margin: 1em;
+    padding: 1em;
+    width: 100%;
+    max-width: 500px;
+    background-color: white;
+    border-radius: 5px;
+    box-shadow: 2px 2px 5px rgb(180, 180, 180);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 2em;
+}
+
+form p {
+    margin-top: .5em;
+}
+
+form {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    gap: .5em;
+}
+
+input, select {
+    padding: .5em .5em;
+    border-radius: 3px;
+    border: 1px solid rgb(68, 68, 68);
+}
+
+option {
+    padding: .5em .5em;
+}
+
+button {
+    margin-top: 1em;
+    border: 3px solid transparent;
+    background-color: rgb(117, 24, 24);
+    color: white;
+    padding: .5em;
+    border-radius: 3px;
+}
