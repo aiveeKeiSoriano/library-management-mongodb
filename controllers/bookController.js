@@ -31,17 +31,25 @@ const addBook = async (name, price, category, authors) => {
 };
 
 const deleteBook = async (input) => {
-  let books = await Book.findOne({ name: input });
+  let id = mongoose.mongo.ObjectID(input)
+  let books = await Book.findOne({ _id: id });
+  console.log(books)
+  let response = ''
   if (!books) {
-    console.log("\nInvalid Book name");
-    return;
-  } else {
-    await Book.deleteOne({ name: input }, function (err) {
+    response = 404
+  }
+  else {
+    await Book.deleteOne({ _id: id }, function (err) {
       if (err) {
-        console.log(err);
-      } else console.log("\nDeleted Successfully!");
+        response = 500
+      }
+      else {
+        console.log('deleted')
+        response = 201
+      }
     });
   }
+  return response
 };
 
 const searchBook = async (input) => {
