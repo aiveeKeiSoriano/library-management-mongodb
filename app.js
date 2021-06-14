@@ -1,3 +1,6 @@
+require("dotenv").config()
+const jwt = require("jsonwebtoken")
+
 const express = require("express");
 const morgan = require("morgan");
 const mongoose = require("mongoose");
@@ -11,7 +14,7 @@ app.use(express.urlencoded())
 app.use(express.json())
 app.use(cors())
 
-mongoose.connect("mongodb://127.0.0.1:27017/library", {
+mongoose.connect(process.env.MONGODB_URL, {
     useNewUrlParser: true,
     useUnifiedTopology: true,
 }).then(() => console.log('connected'))
@@ -37,13 +40,28 @@ const addRouter = require('./routes/add')
 const bookRouter = require('./routes/books')
 const authRouter = require("./routes/auth")
 
-app.use('/books', bookRouter)
+let verifyToken = (req, res, next) => {
+  let header = req.get('Authorization')
+  if (!header) {
+    res.status(403).send({message: "Need access token"})
+  }
+  let token = header.split(' ')[1]
+  try {
+    let user = jwt.verify(token, process.env.ACCESS_TOKEN_SECRET)
+    next()
+  }
+  catch (e) {
+    res.status(403).send({message: "Invalid access token"})
+  }
+}
+
+app.use('/books', [verifyToken, bookRouter])
 app.use('/add', addRouter)
 app.use('/auth', authRouter)
 
 app.get(/.*/, (req, res) => {
   res.statusCode = 404
-  res.send("Are you lost baby girl");
+  res.send("Are you lost?");
 });
 
 const PORT = 3300;
