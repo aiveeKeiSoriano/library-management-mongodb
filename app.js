@@ -39,23 +39,29 @@ app.get("/", (req, res) => {
 const addRouter = require('./routes/add')
 const bookRouter = require('./routes/books')
 const authRouter = require("./routes/auth")
+const categoryRouter = require("./routes/categories")
 
 let verifyToken = (req, res, next) => {
-  let header = req.get('Authorization')
+  let header = req.headers['authorization']
+  console.log(header)
   if (!header) {
-    res.status(403).send({message: "Need access token"})
+    console.log('no header')
+    res.status(403).json({ message: "Need access token" })
   }
-  let token = header.split(' ')[1]
-  try {
-    let user = jwt.verify(token, process.env.ACCESS_TOKEN_SECRET)
-    next()
-  }
-  catch (e) {
-    res.status(403).send({message: "Invalid access token"})
+  else {
+    let token = header.split(' ')[1]
+    try {
+      let user = jwt.verify(token, process.env.ACCESS_TOKEN_SECRET)
+      next()
+    }
+    catch (e) {
+      res.status(403).json({ message: "Invalid access token" })
+    }
   }
 }
 
-app.use('/books', [verifyToken, bookRouter])
+app.use('/books', verifyToken, bookRouter)
+app.use('/categories', verifyToken, categoryRouter)
 app.use('/add', addRouter)
 app.use('/auth', authRouter)
 

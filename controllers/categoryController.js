@@ -21,22 +21,29 @@ const addCategory = async (input) => {
 };
 
 const deleteCategory = async (input) => {
-  let categories = await Category.findOne({ name: input });
+  let id = mongoose.mongo.ObjectID(input)
+  let categories = await Category.findOne({ _id: id });
+  let response = ''
   if (!categories) {
-    console.log("\nInvalid category name");
-    return;
-  } else {
-    await Category.deleteOne({ name: input }, function (err) {
+    return 404
+  }
+  else {
+    await Category.deleteOne({ _id: id }, function (err) {
       if (err) {
-        console.log(err);
-      } else console.log("\nDeleted Successfully!");
+        response = 500
+      }
+      else {
+        console.log('deleted')
+        response = 201
+      }
     });
   }
+  return response
 };
 
 const allCategories = async () => {
   let categories = await Category.find();
-  return categories.map(el => el.name);
+  return categories
 }
 
 module.exports = {
